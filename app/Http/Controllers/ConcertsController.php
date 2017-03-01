@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class ConcertsController extends Controller
 {
-    public function show(Concert $concert)
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id)
     {
+        $concert = Concert::published()->findOrFail($id);
+
         return view('concerts.show', compact('concert'));
     }
 }

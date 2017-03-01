@@ -39,4 +39,15 @@ class Concert extends Model
     {
         return number_format($this->ticket_price / 100, 2);
     }
+
+    /**
+     * Scope the query to only published concerts.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at');
+    }
 }

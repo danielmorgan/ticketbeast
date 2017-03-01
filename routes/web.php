@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/concerts/{concert}', 'ConcertsController@show');
+Route::get('/concerts/{id}', 'ConcertsController@show');

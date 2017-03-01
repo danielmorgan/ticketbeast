@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| Here you may define all of your model factories. Model factories give
-| you a convenient way to create models for testing and seeding your
-| database. Just tell the factory how a default model should look.
-|
-*/
-
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
@@ -28,7 +17,7 @@ $factory->define(App\Concert::class, function (Faker\Generator $faker) {
     return [
         'title'                  => 'Example Band',
         'subtitle'               => 'with The Fake Openers',
-        'date'                   => \Carbon\Carbon::parse('+2 weeks'),
+        'date'                   => Carbon\Carbon::parse('+2 weeks'),
         'ticket_price'           => 2000,
         'venue'                  => 'The Example Theatre',
         'venue_address'          => '123 Example Lane',
@@ -36,5 +25,19 @@ $factory->define(App\Concert::class, function (Faker\Generator $faker) {
         'state'                  => 'ON',
         'zip'                    => '90210',
         'additional_information' => 'Sample additional information.',
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->state(App\Concert::class, 'published', function (Faker\Generator $faker) {
+    return [
+        'published_at' => Carbon\Carbon::parse('-1 week'),
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->state(App\Concert::class, 'unpublished', function (Faker\Generator $faker) {
+    return [
+        'published_at' => null,
     ];
 });
