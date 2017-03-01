@@ -16,9 +16,25 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Concert::class, function (Faker\Generator $faker) {
+    return [
+        'title'                  => 'Example Band',
+        'subtitle'               => 'with The Fake Openers',
+        'date'                   => \Carbon\Carbon::parse('+2 weeks'),
+        'ticket_price'           => 2000,
+        'venue'                  => 'The Example Theatre',
+        'venue_address'          => '123 Example Lane',
+        'city'                   => 'Testville',
+        'state'                  => 'ON',
+        'zip'                    => '90210',
+        'additional_information' => 'Sample additional information.',
     ];
 });
