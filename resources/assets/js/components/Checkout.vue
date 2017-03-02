@@ -19,7 +19,7 @@
 
 <script>
     export default {
-        props: ['ticket_price'],
+        props: ['concert_id', 'ticket_price'],
 
         data() {
             return {
@@ -47,14 +47,25 @@
                 this.handler.open({
                     name: 'TicketBeast',
                     description: this.quantity + ' tickets',
-                    zipCode: true,
+                    zipCode: false,
                     currency: 'gbp',
                     amount: this.quantity * this.ticket_price
                 })
             },
 
             charge: function(token) {
-                console.log('charge', token);
+                const payload = {
+                    email: token.email,
+                    ticket_quantity: this.quantity,
+                    payment_token: token.id
+                };
+
+                this.$http.post(`/concerts/${this.concert_id}/orders`, payload)
+                    .then(res => {
+                        console.log(res);
+                        alert('Tickets purchased');
+                        this.quantity = 0;
+                    });
             }
         }
     }

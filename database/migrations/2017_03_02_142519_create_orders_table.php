@@ -18,6 +18,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('concert_id');
             $table->string('email');
             $table->timestamps();
+
+            $table->foreign('concert_id')->references('id')->on('concerts');
         });
     }
 
@@ -28,6 +30,10 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropForeign('orders_concert_id_foreign');
+        });
+
         Schema::dropIfExists('orders');
     }
 }

@@ -17,6 +17,8 @@ class CreateTicketsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('order_id');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 
@@ -27,6 +29,10 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->dropForeign('tickets_order_id_foreign');
+        });
+
         Schema::dropIfExists('tickets');
     }
 }

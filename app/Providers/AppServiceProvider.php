@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Billing\FakePaymentGateway;
+use App\Billing\PaymentGateway;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(PaymentGateway::class, function ($app) {
+            return new FakePaymentGateway;
+        });
     }
 
     /**
