@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="Card Concert">
-        <div class="Card__content">
+    <div class="Card">
+        <div class="Card__content Concert">
             <h1 class="Concert__title">{{ $concert->title }}</h1>
             <h2 class="Concert__subtitle">{{ $concert->subtitle }}</h2>
 
@@ -37,6 +37,11 @@
                     {{ $concert->additional_information }}
                 </div>
             </div>
+        </div>
+
+        <div class="Card__content">
+            {{--Vue component--}}
+            <Checkout ticket_price="{{ $concert->ticket_price }}"></Checkout>
         </div>
     </div>
 @endsection
