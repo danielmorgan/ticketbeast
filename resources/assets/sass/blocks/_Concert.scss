@@ -1,0 +1,43 @@
+.Concert {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 2.5;
+    color: $text-color-dark;
+
+    .icon { fill: $brand-primary; }
+}
+
+
+.Concert__title {
+    font-family: $font-family-rounded;
+    font-size: 2em;
+}
+
+
+.Concert__subtitle {
+    margin-top: 0.25em;
+
+    font-family: $font-family-rounded;
+    font-size: 1.5em;
+    color: $text-color;
+}
+
+
+.Concert__date {
+    margin-top: 1.5em;
+}
+
+
+.Concert__additional-information {
+    margin-top: 1em;
+}
+
+
+.Concert__indented {
+    margin: -10px 0 0 36px;
+
+    font-size: 0.8em;
+    line-height: 1.2;
+    font-weight: normal;
+    color: $text-color;
+}

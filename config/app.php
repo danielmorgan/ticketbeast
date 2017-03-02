@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'TicketBeast',
 
     /*
     |--------------------------------------------------------------------------
@@ -166,8 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
-        //
+        DigitLab\BladeIcons\BladeIconsServiceProvider::class,
 
         /*
          * Application Service Providers...

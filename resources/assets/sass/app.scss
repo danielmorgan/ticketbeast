@@ -22,17 +22,43 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: $font-family-rounded;
     font-weight: 600;
-    color: darken($text-color, 20%);
+    color: $text-color-dark;
+    line-height: 1;
 }
 
 
 .Card {
     width: calc(100% - 4em);
-    max-width: 640px;
+    max-width: 460px;
     margin: 2em auto;
-    padding: 2em;
 
     background: white;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
+
+.Card__content {
+    padding: 1.5em;
+
+    &:not(:first-child) {
+        border-top: 1px solid #ccc;
+    }
+}
+
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 16px;
+
+    fill: $text-color-dark;
+}
+
+hr {
+    height: 0;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+@import 'blocks/Concert';
