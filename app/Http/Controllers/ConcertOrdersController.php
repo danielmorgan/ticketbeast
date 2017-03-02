@@ -26,19 +26,23 @@ class ConcertOrdersController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store($id)
+    public function store(Request $request, $id)
     {
+        $this->validate(request(), [
+            'email' => 'required',
+        ]);
+
         /** @var Concert $concert */
         $concert = Concert::findOrFail($id);
 
         $this->paymentGateway->charge(
-            request('ticket_quantity') * $concert->ticket_price,
-            request('payment_token')
+            $request->ticket_quantity * $concert->ticket_price,
+            $request->payment_token
         );
 
         $order = $concert->orderTickets(
-            request('email'),
-            request('ticket_quantity')
+            $request->email,
+            $request->ticket_quantity
         );
 
         return response()->json($order, 201);
