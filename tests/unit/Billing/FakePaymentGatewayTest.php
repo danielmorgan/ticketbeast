@@ -1,7 +1,7 @@
 <?php
 
 use App\Billing\FakePaymentGateway;
-use App\Billing\PaymentFailedException;
+use App\Exceptions\PaymentFailedException;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -29,6 +29,6 @@ class FakePaymentGatewayTest extends TestCase
             return;
         }
 
-        $this->fail('Expected PaymentFailedException');
+        $this->fail('Charge succeeded even though payment token was invalid.');
     }
 }

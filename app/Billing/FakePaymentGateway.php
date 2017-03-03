@@ -2,6 +2,7 @@
 
 namespace App\Billing;
 
+use App\Exceptions\PaymentFailedException;
 use Illuminate\Support\Collection;
 
 class FakePaymentGateway implements PaymentGateway

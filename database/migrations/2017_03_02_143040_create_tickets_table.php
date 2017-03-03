@@ -15,9 +15,11 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('concert_id');
+            $table->unsignedInteger('order_id')->nullable();
             $table->timestamps();
 
+            $table->foreign('concert_id')->references('id')->on('concerts');
             $table->foreign('order_id')->references('id')->on('orders');
         });
     }
@@ -30,6 +32,7 @@ class CreateTicketsTable extends Migration
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
+            $table->dropForeign('tickets_concert_id_foreign');
             $table->dropForeign('tickets_order_id_foreign');
         });
 

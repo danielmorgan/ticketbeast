@@ -11,6 +11,9 @@ class PurchaseTicketsTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * @var FakePaymentGateway
+     */
     private $paymentGateway;
 
     /**
@@ -87,6 +90,24 @@ class PurchaseTicketsTest extends TestCase
     }
 
     /** @test */
+    function customer_cannot_purchase_more_tickets_than_remain()
+    {
+        $concert = factory(Concert::class)->states('published')->create();
+        $concert->addTickets(50);
+
+        $this->orderTickets($concert, [
+            'email'           => 'test@example.com',
+            'ticket_quantity' => 51,
+            'payment_token'   => $this->paymentGateway->getValidTestToken(),
+        ]);
+
+        $this->assertResponseStatus(422);
+        $this->assertNull($concert->orders()->where('email', 'test@example.com')->first());
+        $this->assertEquals(0, $this->paymentGateway->totalCharges());
+        $this->assertEquals(50, $concert->ticketsRemaining);
+    }
+
+    /** @test */
     function an_order_is_not_created_if_payment_fails()
     {
         $concert = factory(Concert::class)->states('published')->create();
@@ -102,6 +123,11 @@ class PurchaseTicketsTest extends TestCase
         $order = $concert->orders()->where('email', 'test@example.com')->first();
         $this->assertNull($order);
     }
+
+
+    /**
+     * Validation tests...
+     */
 
     /** @test */
     function email_is_required()
