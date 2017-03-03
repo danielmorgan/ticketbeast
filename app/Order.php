@@ -30,4 +30,14 @@ class Order extends Model
 
         $this->delete();
     }
+
+    /**
+     * Get the number of tickets assigned to an order.
+     *
+     * @return int
+     */
+    public function ticketQuantity()
+    {
+        return $this->tickets->count();
+    }
 }

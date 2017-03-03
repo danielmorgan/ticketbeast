@@ -19,6 +19,9 @@ class Concert extends Model
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
@@ -91,15 +94,50 @@ class Concert extends Model
         return $order;
     }
 
+    /**
+     * Add empty tickets that can be purchased.
+     *
+     * @param int $quantity
+     * @return $this
+     */
     public function addTickets($quantity)
     {
         foreach (range(1, $quantity) as $i) {
             $this->tickets()->create([]);
         }
+
+        return $this;
     }
 
+    /**
+     * Return number of tickets that remain unpurchased.
+     *
+     * @return int
+     */
     public function ticketsRemaining()
     {
         return $this->tickets()->available()->count();
+    }
+
+    /**
+     * Check if there are any order for a given email.
+     *
+     * @param string $customerEmail
+     * @return bool
+     */
+    public function hasOrderFor($customerEmail)
+    {
+        return $this->orders()->where('email', $customerEmail)->count() > 0;
+    }
+
+    /**
+     * Get all orders for a given email.
+     *
+     * @param string $customerEmail
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function ordersFor($customerEmail)
+    {
+        return $this->orders()->where('email', $customerEmail)->get();
     }
 }
