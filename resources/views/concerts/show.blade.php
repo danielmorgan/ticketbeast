@@ -41,7 +41,9 @@
 
         <div class="Card__content">
             {{--Vue component--}}
-            <Checkout concert_id="{{ $concert->id }}" ticket_price="{{ $concert->ticket_price }}"></Checkout>
+            <Checkout concert_id="{{ $concert->id }}"
+                      ticket_price="{{ $concert->ticket_price }}">
+            </Checkout>
         </div>
     </div>
 @endsection
