@@ -18,7 +18,7 @@
 
             <div class="Concert__ticket-price">
                 @icon('coin-pound')
-                &pound;{{ $concert->ticket_price_in_gbp }}
+                £{{ $concert->ticket_price_in_gbp }}
             </div>
 
             <div class="Concert__venue">
