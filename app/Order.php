@@ -19,11 +19,11 @@ class Order extends Model
      * @param string                                   $email
      * @return static
      */
-    public static function forTickets(Collection $tickets, $email)
+    public static function forTickets(Collection $tickets, $email, $amount = null)
     {
         $order = self::create([
             'email'  => $email,
-            'amount' => $tickets->sum('price'),
+            'amount' => $amount,
         ]);
 
         $order->tickets()->saveMany($tickets);
