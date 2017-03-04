@@ -16,41 +16,6 @@ class PurchaseTicketsTest extends TestCase
      */
     private $paymentGateway;
 
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->paymentGateway = new FakePaymentGateway;
-        $this->app->instance(PaymentGateway::class, $this->paymentGateway);
-    }
-
-    /**
-     * Make POST request to order some tickets.
-     *
-     * @param \App\Concert $concert
-     * @param array        $params
-     */
-    protected function orderTickets(Concert $concert, array $params = [])
-    {
-        $this->json('POST', "/concerts/{$concert->id}/orders", $params);
-    }
-
-    /**
-     * Assert there is a validation error for the passed field.
-     *
-     * @param string $field
-     */
-    protected function assertValidationError($field)
-    {
-        $this->assertResponseStatus(422);
-        $this->assertArrayHasKey($field, $this->decodeResponseJson());
-    }
-
 
     /** @test */
     function customer_can_purchase_tickets_to_a_published_concert()
@@ -67,6 +32,11 @@ class PurchaseTicketsTest extends TestCase
         ]);
 
         $this->assertResponseStatus(201);
+        $this->seeJsonSubset([
+            'email' => 'test@example.com',
+            'ticket_quantity' => 3,
+            'amount' => 9750,
+        ]);
         $this->assertEquals(9750, $this->paymentGateway->totalCharges());
         $this->assertTrue($concert->hasOrderFor('test@example.com'));
         $this->assertEquals(3, $concert->ordersFor('test@example.com')->first()->ticketQuantity());
@@ -128,6 +98,7 @@ class PurchaseTicketsTest extends TestCase
         $this->assertResponseStatus(422);
         $this->assertFalse($concert->hasOrderFor('test@example.com'));
     }
+
 
 
     /**
@@ -199,5 +170,42 @@ class PurchaseTicketsTest extends TestCase
         ]);
 
         $this->assertValidationError('payment_token');
+    }
+
+
+
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->paymentGateway = new FakePaymentGateway;
+        $this->app->instance(PaymentGateway::class, $this->paymentGateway);
+    }
+
+    /**
+     * Make POST request to order some tickets.
+     *
+     * @param \App\Concert $concert
+     * @param array        $params
+     */
+    protected function orderTickets(Concert $concert, array $params = [])
+    {
+        $this->json('POST', "/concerts/{$concert->id}/orders", $params);
+    }
+
+    /**
+     * Assert there is a validation error for the passed field.
+     *
+     * @param string $field
+     */
+    protected function assertValidationError($field)
+    {
+        $this->assertResponseStatus(422);
+        $this->assertArrayHasKey($field, $this->decodeResponseJson());
     }
 }

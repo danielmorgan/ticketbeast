@@ -20,6 +20,14 @@ class Order extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function concert()
+    {
+        return $this->belongsTo(Concert::class);
+    }
+
+    /**
      * Release all tickets and delete the order.
      */
     public function cancel()
@@ -39,5 +47,17 @@ class Order extends Model
     public function ticketQuantity()
     {
         return $this->tickets->count();
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'email'           => $this->email,
+            'ticket_quantity' => $this->ticketQuantity(),
+            'amount'          => $this->concert->ticket_price * $this->ticketQuantity(),
+        ];
     }
 }
