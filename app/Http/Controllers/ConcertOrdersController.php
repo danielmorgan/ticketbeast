@@ -34,7 +34,7 @@ class ConcertOrdersController extends Controller
      */
     public function store(Request $request, $id)
     {
-        /** @var Concert $concert */
+        /** @var \App\Concert $concert */
         $concert = Concert::published()->findOrFail($id);
 
         $this->validate($request, [
@@ -44,7 +44,7 @@ class ConcertOrdersController extends Controller
         ]);
 
         try {
-            $tickets = $concert->findTickets($request->ticket_quantity);
+            $tickets = $concert->reserveTickets($request->ticket_quantity);
             $reservation = new Reservation($tickets);
 
             $this->paymentGateway->charge(

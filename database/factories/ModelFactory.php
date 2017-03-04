@@ -12,6 +12,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Concert::class, function (Faker\Generator $faker) {
     return [
@@ -39,5 +40,15 @@ $factory->state(App\Concert::class, 'published', function (Faker\Generator $fake
 $factory->state(App\Concert::class, 'unpublished', function (Faker\Generator $faker) {
     return [
         'published_at' => null,
+    ];
+});
+
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Ticket::class, function (Faker\Generator $faker) {
+    return [
+        'concert_id' => function () {
+            return factory(\App\Concert::class)->create()->id;
+        },
     ];
 });

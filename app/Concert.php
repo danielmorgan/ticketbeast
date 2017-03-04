@@ -87,19 +87,26 @@ class Concert extends Model
     /**
      * Get some tickets if available.
      *
-     * @param int $ticketQuantity
+     * @param int $quantity
      * @return \Illuminate\Database\Eloquent\Collection
      * @throws \App\Exceptions\NotEnoughTicketsException
      */
-    public function findTickets($ticketQuantity)
+    public function findTickets($quantity)
     {
-        $tickets = $this->tickets()->available()->take($ticketQuantity)->get();
+        $tickets = $this->tickets()->available()->take($quantity)->get();
 
-        if ($tickets->count() < $ticketQuantity) {
+        if ($tickets->count() < $quantity) {
             throw new NotEnoughTicketsException;
         }
 
         return $tickets;
+    }
+
+    public function reserveTickets($quantity)
+    {
+        return $this->findTickets($quantity)->each(function (Ticket $ticket) {
+            $ticket->reserve();
+        });
     }
 
     /**

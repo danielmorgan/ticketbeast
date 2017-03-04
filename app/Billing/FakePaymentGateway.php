@@ -13,6 +13,11 @@ class FakePaymentGateway implements PaymentGateway
     private $charges;
 
     /**
+     * @var \Closure
+     */
+    private $beforeFirstChargeCallback;
+
+    /**
      * FakePaymentGateway constructor.
      */
     public function __construct()
@@ -21,6 +26,8 @@ class FakePaymentGateway implements PaymentGateway
     }
 
     /**
+     * Return a valid payment provider token for testing.
+     *
      * @return string
      */
     public function getValidTestToken()
@@ -29,10 +36,30 @@ class FakePaymentGateway implements PaymentGateway
     }
 
     /**
+     * Sets a callback to be executed before charge(), for testing purposes.
      *
+     * @param \Closure $callback
+     */
+    public function beforeFirstCharge(\Closure $callback)
+    {
+        $this->beforeFirstChargeCallback = $callback;
+    }
+
+    /**
+     * Add a charge.
+     *
+     * @param int    $amount
+     * @param string $token
+     * @throws \App\Exceptions\PaymentFailedException
      */
     public function charge($amount, $token)
     {
+        if ($this->beforeFirstChargeCallback !== null) {
+            $callback = $this->beforeFirstChargeCallback;
+            $this->beforeFirstChargeCallback = null;
+            $callback->__invoke($this);
+        }
+
         if ($token !== $this->getValidTestToken()) {
             throw new PaymentFailedException;
         }
@@ -41,6 +68,8 @@ class FakePaymentGateway implements PaymentGateway
     }
 
     /**
+     * Sum the charge amounts together.
+     *
      * @return int
      */
     public function totalCharges()
