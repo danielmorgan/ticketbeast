@@ -33,9 +33,9 @@ class PurchaseTicketsTest extends TestCase
 
         $this->assertResponseStatus(201);
         $this->seeJsonSubset([
-            'email' => 'test@example.com',
+            'email'           => 'test@example.com',
             'ticket_quantity' => 3,
-            'amount' => 9750,
+            'amount'          => 9750,
         ]);
         $this->assertEquals(9750, $this->paymentGateway->totalCharges());
         $this->assertTrue($concert->hasOrderFor('test@example.com'));
@@ -138,8 +138,8 @@ class PurchaseTicketsTest extends TestCase
         $concert = factory(Concert::class)->states('published')->create();
 
         $this->orderTickets($concert, [
-            'email'           => 'test@example.com',
-            'payment_token'   => $this->paymentGateway->getValidTestToken(),
+            'email'         => 'test@example.com',
+            'payment_token' => $this->paymentGateway->getValidTestToken(),
         ]);
 
         $this->assertValidationError('ticket_quantity');
@@ -171,7 +171,6 @@ class PurchaseTicketsTest extends TestCase
 
         $this->assertValidationError('payment_token');
     }
-
 
 
     /**

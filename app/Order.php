@@ -50,16 +50,6 @@ class Order extends Model
     }
 
     /**
-     * Gets the order total amount.
-     *
-     * @return int
-     */
-    public function total()
-    {
-        return $this->concert->ticket_price * $this->ticketQuantity();
-    }
-
-    /**
      * @return array
      */
     public function toArray()
@@ -67,7 +57,7 @@ class Order extends Model
         return [
             'email'           => $this->email,
             'ticket_quantity' => $this->ticketQuantity(),
-            'amount'          => $this->total(),
+            'amount'          => $this->amount,
         ];
     }
 }

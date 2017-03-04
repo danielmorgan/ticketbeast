@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('concert_id');
             $table->string('email');
+            $table->integer('amount');
             $table->timestamps();
 
             $table->foreign('concert_id')->references('id')->on('concerts');
