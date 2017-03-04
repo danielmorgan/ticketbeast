@@ -26,6 +26,8 @@ class ConcertOrdersController extends Controller
     }
 
     /**
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, $id)
@@ -33,7 +35,7 @@ class ConcertOrdersController extends Controller
         /** @var Concert $concert */
         $concert = Concert::published()->findOrFail($id);
 
-        $this->validate(request(), [
+        $this->validate($request, [
             'email'           => ['required', 'email'],
             'ticket_quantity' => ['required', 'integer', 'min:1'],
             'payment_token'   => ['required'],
@@ -51,9 +53,9 @@ class ConcertOrdersController extends Controller
 
             return response()->json($order, 201);
         } catch (PaymentFailedException $e) {
-            return response(null, 422);
+            return response()->json(null, 422);
         } catch (NotEnoughTicketsException $e) {
-            return response(null, 422);
+            return response()->json(null, 422);
         }
     }
 }

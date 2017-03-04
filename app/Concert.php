@@ -17,7 +17,7 @@ class Concert extends Model
      */
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsToMany(Order::class, 'tickets');
     }
 
     /**
@@ -73,7 +73,7 @@ class Concert extends Model
      * Create an order and some tickets.
      *
      * @param string $email
-     * @param int $ticketQuantity
+     * @param int    $ticketQuantity
      * @return \App\Order
      * @throws \App\Exceptions\NotEnoughTicketsException
      */
@@ -105,16 +105,16 @@ class Concert extends Model
     /**
      * Create an order and attach some tickets to it.
      *
-     * @param string $email
+     * @param string                                   $email
      * @param \Illuminate\Database\Eloquent\Collection $tickets
      * @return \App\Order
      */
     public function createOrder($email, Collection $tickets)
     {
         /** @var Order $order */
-        $order = $this->orders()->create([
+        $order = Order::create([
             'email'  => $email,
-            'amount' => $tickets->count() * $this->ticket_price,
+            'amount' => $tickets->sum('price'),
         ]);
 
         $order->tickets()->saveMany($tickets);

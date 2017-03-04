@@ -12,6 +12,19 @@ class Ticket extends Model
     protected $guarded = [];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|mixed
+     */
+    public function concert()
+    {
+        return $this->belongsTo(Concert::class);
+    }
+
+    public function getPriceAttribute()
+    {
+        return $this->concert->ticket_price;
+    }
+
+    /**
      * Only return tickets that haven't been purchased.
      *
      * @param $query
