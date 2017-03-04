@@ -46,7 +46,7 @@ class ConcertOrdersController extends Controller
             );
 
             $this->paymentGateway->charge(
-                $request->ticket_quantity * $concert->ticket_price,
+                $order->total(),
                 $request->payment_token
             );
 

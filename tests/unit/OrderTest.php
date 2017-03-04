@@ -41,4 +41,17 @@ class OrderTest extends TestCase
             'amount' => 6000,
         ], $result);
     }
+
+    /** @test */
+    function can_calculate_total_amount()
+    {
+        $concert = factory(Concert::class)
+            ->create(['ticket_price' => 550])
+            ->addTickets(3);
+
+        $order = $concert->orderTickets('test@example.com', 3);
+        $total = $order->total();
+
+        $this->assertEquals(1650, $total);
+    }
 }
