@@ -19,6 +19,11 @@ class Ticket extends Model
         return $this->belongsTo(Concert::class);
     }
 
+    /**
+     * Get price of a ticket based on the concert's set price.
+     *
+     * @return int
+     */
     public function getPriceAttribute()
     {
         return $this->concert->ticket_price;

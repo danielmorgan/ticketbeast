@@ -1,6 +1,5 @@
 <?php
 
-use App\Concert;
 use App\Reservation;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -8,15 +7,14 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ReservationTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     function calculates_the_total_cost()
     {
-        $concert = factory(Concert::class)
-            ->create(['ticket_price' => 1250])
-            ->addTickets(3);
-        $tickets = $concert->findTickets(3);
+        $tickets = collect([
+            (object) ['price' => 1250],
+            (object) ['price' => 1250],
+            (object) ['price' => 1250],
+        ]);
 
         $reservation = new Reservation($tickets);
 
