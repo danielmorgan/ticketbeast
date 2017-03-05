@@ -53,7 +53,7 @@ class ConcertOrdersController extends Controller
                 $request->payment_token
             );
 
-            $order = Order::fromReservation($reservation);
+            $order = $reservation->complete();
 
             return response()->json($order, 201);
         } catch (NotEnoughTicketsException $e) {

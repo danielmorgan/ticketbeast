@@ -49,13 +49,17 @@ class Reservation
     }
 
     /**
-     * Add up the cost of each ticket in the reservation.
+     * Create an order.
      *
-     * @return mixed
+     * @return \App\Order
      */
-    public function totalCost()
+    public function complete()
     {
-        return $this->tickets->sum('price');
+        return Order::forTickets(
+            $this->tickets(),
+            $this->email(),
+            $this->totalCost()
+        );
     }
 
     /**
@@ -68,5 +72,15 @@ class Reservation
         $this->tickets->each(function (Ticket $ticket) {
             $ticket->release();
         });
+    }
+
+    /**
+     * Add up the cost of each ticket in the reservation.
+     *
+     * @return mixed
+     */
+    public function totalCost()
+    {
+        return $this->tickets->sum('price');
     }
 }

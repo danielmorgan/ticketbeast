@@ -17,9 +17,10 @@ class Order extends Model
      *
      * @param \Illuminate\Support\Collection $tickets
      * @param string                         $email
+     * @param int                            $amount
      * @return static
      */
-    public static function forTickets(Collection $tickets, $email, $amount = null)
+    public static function forTickets(Collection $tickets, $email, $amount)
     {
         $order = self::create([
             'email'  => $email,
@@ -27,24 +28,6 @@ class Order extends Model
         ]);
 
         $order->tickets()->saveMany($tickets);
-
-        return $order;
-    }
-
-    /**
-     * Create a new order from a reservation.
-     *
-     * @param \App\Reservation $reservation
-     * @return static
-     */
-    public static function fromReservation(Reservation $reservation)
-    {
-        $order = self::create([
-            'email' => $reservation->email(),
-            'amount' => $reservation->totalCost(),
-        ]);
-
-        $order->tickets()->saveMany($reservation->tickets());
 
         return $order;
     }
