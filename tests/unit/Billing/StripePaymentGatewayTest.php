@@ -4,6 +4,9 @@ use App\Billing\StripePaymentGateway;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Stripe\Charge;
+use Stripe\Stripe;
+use Stripe\Token;
 
 class StripePaymentGatewayTest extends TestCase
 {
@@ -16,7 +19,7 @@ class StripePaymentGatewayTest extends TestCase
     /** @test */
     function charges_with_a_valid_payment_token_are_successful()
     {
-        $paymentGateway = new StripePaymentGateway(config('services.stripe.secret'));
+        $paymentGateway = new StripePaymentGateway(Stripe::$apiKey);
 
         $paymentGateway->charge(2500, $this->validToken());
 
@@ -34,6 +37,8 @@ class StripePaymentGatewayTest extends TestCase
     {
         parent::setUp();
 
+        Stripe::setApiKey(config('services.stripe.secret'));
+
         $this->lastCharge = $this->lastCharge();
     }
 
@@ -42,10 +47,7 @@ class StripePaymentGatewayTest extends TestCase
      */
     private function lastCharge()
     {
-        $charges = \Stripe\Charge::all(
-            ['limit' => 1],
-            ['api_key' => config('services.stripe.secret')]
-        )['data'];
+        $charges = Charge::all(['limit' => 1])['data'];
 
         if (empty($charges)) {
             return null;
@@ -59,13 +61,12 @@ class StripePaymentGatewayTest extends TestCase
      */
     private function newCharges()
     {
-        return \Stripe\Charge::all(
-            [
-                'limit' => 1,
-                'ending_before' => $this->lastCharge ? $this->lastCharge->id : null,
-            ],
-            ['api_key' => config('services.stripe.secret')]
-        )['data'];
+        return Charge::all([
+            'limit' => 1,
+            'ending_before' => $this->lastCharge
+                ? $this->lastCharge->id
+                : null,
+        ])['data'];
     }
 
     /**
@@ -73,7 +74,7 @@ class StripePaymentGatewayTest extends TestCase
      */
     private function validToken()
     {
-        return \Stripe\Token::create([
+        return Token::create([
             'card' => [
                 'number'    => '4242424242424242',
                 'exp_month' => 1,
