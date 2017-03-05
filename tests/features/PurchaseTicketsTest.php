@@ -129,12 +129,13 @@ class PurchaseTicketsTest extends TestCase
 
         $this->orderTickets($concert, [
             'email'           => 'test@example.com',
-            'ticket_quantity' => 2,
+            'ticket_quantity' => 5,
             'payment_token'   => 'invalid-payment-token',
         ]);
 
         $this->assertResponseStatus(422);
         $this->assertFalse($concert->hasOrderFor('test@example.com'));
+        $this->assertEquals(5, $concert->ticketsRemaining());
     }
 
 

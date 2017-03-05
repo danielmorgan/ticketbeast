@@ -13,6 +13,7 @@ class OrderTest extends TestCase
     /** @test */
     function can_create_an_order_from_tickets_email_and_amount()
     {
+        /** @var \App\Concert $concert */
         $concert = factory(Concert::class)
             ->create()
             ->addTickets(5);
@@ -33,6 +34,7 @@ class OrderTest extends TestCase
     /** @test */
     function tickets_are_released_when_an_order_is_cancelled()
     {
+        /** @var \App\Concert $concert */
         $concert = factory(Concert::class)
             ->create()
             ->addTickets(10);
@@ -48,6 +50,7 @@ class OrderTest extends TestCase
     /** @test */
     function converting_to_an_array()
     {
+        /** @var \App\Concert $concert */
         $concert = factory(Concert::class)
             ->create(['ticket_price' => 1200])
             ->addTickets(5);

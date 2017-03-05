@@ -54,6 +54,6 @@ class Ticket extends Model
      */
     public function release()
     {
-        $this->update(['order_id' => null]);
+        $this->update(['reserved_at' => null]);
     }
 }
