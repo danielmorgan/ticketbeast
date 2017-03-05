@@ -102,6 +102,12 @@ class Concert extends Model
         return $tickets;
     }
 
+    /**
+     * Reserve some tickets for this concert.
+     *
+     * @param int $quantity
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function reserveTickets($quantity)
     {
         return $this->findTickets($quantity)->each(function (Ticket $ticket) {
