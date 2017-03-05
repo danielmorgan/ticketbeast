@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Billing\PaymentGateway;
 use Illuminate\Support\Collection;
 
 class Reservation
@@ -51,10 +52,14 @@ class Reservation
     /**
      * Create an order.
      *
+     * @param \App\Billing\PaymentGateway $paymentGateway
+     * @param string                      $paymentToken
      * @return \App\Order
      */
-    public function complete()
+    public function complete(PaymentGateway $paymentGateway, $paymentToken)
     {
+        $paymentGateway->charge($this->totalCost(), $paymentToken);
+
         return Order::forTickets(
             $this->tickets(),
             $this->email(),
