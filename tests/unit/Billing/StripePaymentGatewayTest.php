@@ -1,6 +1,7 @@
 <?php
 
 use App\Billing\StripePaymentGateway;
+use App\Exceptions\PaymentFailedException;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -18,16 +19,32 @@ class StripePaymentGatewayTest extends TestCase
      */
     private $lastCharge;
 
+    /**
+     * @var \App\Billing\StripePaymentGateway
+     */
+    private $paymentGateway;
+
 
     /** @test */
     function charges_with_a_valid_payment_token_are_successful()
     {
-        $paymentGateway = new StripePaymentGateway(Stripe::$apiKey);
-
-        $paymentGateway->charge(2500, $this->validToken());
+        $this->paymentGateway->charge(2500, $this->validToken());
 
         $this->assertCount(1, $this->newCharges());
         $this->assertEquals(2500, $this->lastCharge()->amount);
+    }
+
+    /** @test */
+    function charges_with_a_invalid_payment_token_fail()
+    {
+        try {
+            $this->paymentGateway->charge(2500, 'invalid-payment-token');
+        } catch (PaymentFailedException $e) {
+            $this->assertCount(0, $this->newCharges());
+            return;
+        }
+
+        $this->fail('Charging with an invalid payment token did not throw a PaymentFailedException.');
     }
 
 
@@ -41,6 +58,8 @@ class StripePaymentGatewayTest extends TestCase
         parent::setUp();
 
         Stripe::setApiKey(config('services.stripe.secret'));
+
+        $this->paymentGateway = new StripePaymentGateway(Stripe::$apiKey);
 
         $this->lastCharge = $this->lastCharge();
     }
