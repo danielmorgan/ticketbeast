@@ -7,7 +7,6 @@ use App\Concert;
 use App\Exceptions\NotEnoughTicketsException;
 use App\Exceptions\PaymentFailedException;
 use App\Order;
-use App\Reservation;
 use Illuminate\Http\Request;
 
 class ConcertOrdersController extends Controller
@@ -44,8 +43,7 @@ class ConcertOrdersController extends Controller
         ]);
 
         try {
-            $tickets = $concert->reserveTickets($request->ticket_quantity);
-            $reservation = new Reservation($tickets);
+            $reservation = $concert->reserveTickets($request->ticket_quantity);
 
             $this->paymentGateway->charge(
                 $reservation->totalCost(),
@@ -53,7 +51,7 @@ class ConcertOrdersController extends Controller
             );
 
             $order = Order::forTickets(
-                $tickets,
+                $reservation->tickets(),
                 $request->email,
                 $reservation->totalCost()
             );

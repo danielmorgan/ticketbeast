@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Order extends Model
 {
@@ -15,8 +15,8 @@ class Order extends Model
     /**
      * Create a new order for some tickets.
      *
-     * @param \Illuminate\Database\Eloquent\Collection $tickets
-     * @param string                                   $email
+     * @param \Illuminate\Support\Collection $tickets
+     * @param string                         $email
      * @return static
      */
     public static function forTickets(Collection $tickets, $email, $amount = null)

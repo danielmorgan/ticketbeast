@@ -16,7 +16,6 @@ class ReservationTest extends TestCase
             (object) ['price' => 1250],
             (object) ['price' => 1250],
         ]);
-
         $reservation = new Reservation($tickets);
 
         $this->assertEquals(3750, $reservation->totalCost());
@@ -37,5 +36,18 @@ class ReservationTest extends TestCase
         $tickets->each(function (\Mockery\MockInterface $mock) {
             $mock->shouldHaveReceived('release');
         });
+    }
+
+    /** @test */
+    function retrieving_the_reservations_tickets()
+    {
+        $tickets = collect([
+            (object) ['price' => 1250],
+            (object) ['price' => 1250],
+            (object) ['price' => 1250],
+        ]);
+        $reservation = new Reservation($tickets);
+
+        $this->assertEquals($tickets, $reservation->tickets());
     }
 }

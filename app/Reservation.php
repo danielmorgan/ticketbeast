@@ -22,6 +22,16 @@ class Reservation
     }
 
     /**
+     * Tickets getter.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function tickets()
+    {
+        return $this->tickets;
+    }
+
+    /**
      * Add up the cost of each ticket in the reservation.
      *
      * @return mixed
