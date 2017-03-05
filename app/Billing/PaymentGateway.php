@@ -11,13 +11,6 @@ namespace App\Billing;
 interface PaymentGateway
 {
     /**
-     * Return a valid payment provider token for testing.
-     *
-     * @return string
-     */
-    public function getValidTestToken();
-
-    /**
      * Add a charge.
      *
      * @param int    $amount
@@ -25,11 +18,4 @@ interface PaymentGateway
      * @throws \App\Exceptions\PaymentFailedException
      */
     public function charge($amount, $token);
-
-    /**
-     * Sum the charge amounts together.
-     *
-     * @return int
-     */
-    public function totalCharges();
 }

@@ -76,6 +76,7 @@ class Concert extends Model
      * @param int    $ticketQuantity
      * @return \App\Order
      * @throws \App\Exceptions\NotEnoughTicketsException
+     * @todo Remove this, only used in tests
      */
     public function orderTickets($email, $ticketQuantity = 1)
     {
