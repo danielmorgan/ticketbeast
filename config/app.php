@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         DigitLab\BladeIcons\BladeIconsServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Application Service Providers...
