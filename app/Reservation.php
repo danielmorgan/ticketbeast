@@ -12,13 +12,20 @@ class Reservation
     private $tickets;
 
     /**
+     * @var string
+     */
+    private $email;
+
+    /**
      * Reservation constructor.
      *
      * @param \Illuminate\Support\Collection $tickets
+     * @param string                         $email
      */
-    public function __construct(Collection $tickets)
+    public function __construct(Collection $tickets, $email)
     {
         $this->tickets = $tickets;
+        $this->email = $email;
     }
 
     /**
@@ -29,6 +36,16 @@ class Reservation
     public function tickets()
     {
         return $this->tickets;
+    }
+
+    /**
+     * Customer email getter.
+     *
+     * @return string
+     */
+    public function email()
+    {
+        return $this->email;
     }
 
     /**

@@ -105,10 +105,11 @@ class Concert extends Model
     /**
      * Reserve some tickets for this concert and return a Reservation.
      *
-     * @param int $quantity
+     * @param int    $quantity
+     * @param string $email
      * @return \App\Reservation
      */
-    public function reserveTickets($quantity)
+    public function reserveTickets($quantity, $email)
     {
         $tickets = $this->findTickets($quantity);
 
@@ -116,7 +117,7 @@ class Concert extends Model
             $ticket->reserve();
         });
 
-        return new Reservation($tickets);
+        return new Reservation($tickets, $email);
     }
 
     /**
