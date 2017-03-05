@@ -8,6 +8,9 @@ use Stripe\Charge;
 use Stripe\Stripe;
 use Stripe\Token;
 
+/**
+ * @group integration
+ */
 class StripePaymentGatewayTest extends TestCase
 {
     /**
