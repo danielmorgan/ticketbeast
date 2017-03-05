@@ -32,6 +32,24 @@ class Order extends Model
     }
 
     /**
+     * Create a new order from a reservation.
+     *
+     * @param \App\Reservation $reservation
+     * @return static
+     */
+    public static function fromReservation(Reservation $reservation)
+    {
+        $order = self::create([
+            'email' => $reservation->email(),
+            'amount' => $reservation->totalCost(),
+        ]);
+
+        $order->tickets()->saveMany($reservation->tickets());
+
+        return $order;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tickets()
