@@ -163,7 +163,6 @@ class ConcertTest extends TestCase
     function cannot_reserve_tickets_that_have_already_been_reserved()
     {
         /** @var \App\Concert $concert */
-        /** @var \App\Concert $concert */
         $concert = factory(Concert::class)
             ->create()
             ->addTickets(3);

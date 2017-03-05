@@ -13,7 +13,7 @@ class ViewConcertListingTest extends TestCase
     /** @test */
     function user_can_view_published_concert_listing()
     {
-        $concert = factory(Concert::class)->states('published')->create([
+        $concert = factory(Concert::class)->states(['published'])->create([
             'title'                  => 'The Red Chord',
             'subtitle'               => 'with Animosity and Lethargy',
             'date'                   => Carbon::parse('December 13, 2016 8:00pm'),
@@ -42,7 +42,7 @@ class ViewConcertListingTest extends TestCase
     /** @test */
     function user_cannot_view_unpublished_concert_listings()
     {
-        $concert = factory(Concert::class)->states('unpublished')->create();
+        $concert = factory(Concert::class)->states(['unpublished'])->create();
 
         $this->get('/concerts/' . $concert->id);
 
