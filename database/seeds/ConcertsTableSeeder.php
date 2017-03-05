@@ -25,6 +25,6 @@ class ConcertsTableSeeder extends Seeder
             'zip'                    => '17916',
             'additional_information' => 'For tickets, call (555) 555-5555.',
             'published_at'           => Carbon::parse('-1 week'),
-        ]);
+        ])->addTickets(10);
     }
 }
