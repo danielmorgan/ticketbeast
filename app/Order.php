@@ -48,18 +48,6 @@ class Order extends Model
     }
 
     /**
-     * Release all tickets and delete the order.
-     */
-    public function cancel()
-    {
-        $this->tickets->each(function ($ticket) {
-            $ticket->release();
-        });
-
-        $this->delete();
-    }
-
-    /**
      * Get the number of tickets assigned to an order.
      *
      * @return int
