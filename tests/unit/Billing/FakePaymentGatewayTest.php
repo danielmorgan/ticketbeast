@@ -16,11 +16,30 @@ class FakePaymentGatewayTest extends TestCase
 
 
     /** @test */
+    function can_fetch_charges_created_during_a_callback()
+    {
+        $this->paymentGateway->charge(2000, $this->paymentGateway->getValidTestToken());
+        $this->paymentGateway->charge(3000, $this->paymentGateway->getValidTestToken());
+
+        $newCharges = $this->paymentGateway->newChargesDuring(function (PaymentGateway $paymentGateway) {
+            $this->paymentGateway->charge(4000, $this->paymentGateway->getValidTestToken());
+            $this->paymentGateway->charge(5000, $this->paymentGateway->getValidTestToken());
+        });
+
+        $this->assertCount(2, $newCharges);
+        $this->assertEquals([4000, 5000], $newCharges->all());
+    }
+
+    /** @test */
     function charges_with_a_valid_payment_token_are_successful()
     {
-        $this->paymentGateway->charge(2500, $this->paymentGateway->getValidTestToken());
+        $newCharges = $this->paymentGateway->newChargesDuring(function (PaymentGateway $paymentGateway) {
+            $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
+            $paymentGateway->charge(1000, $paymentGateway->getValidTestToken());
+        });
 
-        $this->assertEquals(2500, $this->paymentGateway->totalCharges());
+        $this->assertCount(2, $newCharges);
+        $this->assertEquals(3500, $newCharges->sum());
     }
 
     /** @test */

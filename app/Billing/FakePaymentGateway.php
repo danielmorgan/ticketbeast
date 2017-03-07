@@ -58,6 +58,21 @@ class FakePaymentGateway implements PaymentGateway
     }
 
     /**
+     * Get charges made during the callback.
+     *
+     * @param \Closure $callback
+     * @return \Illuminate\Support\Collection
+     */
+    public function newChargesDuring(\Closure $callback)
+    {
+        $chargesFrom = $this->charges->count();
+
+        $callback($this);
+
+        return $this->charges->slice($chargesFrom)->values();
+    }
+
+    /**
      * Sum the charge amounts together.
      *
      * @return int

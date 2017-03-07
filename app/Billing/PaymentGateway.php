@@ -20,6 +20,14 @@ interface PaymentGateway
     public function charge($amount, $token);
 
     /**
+     * Get charges made during the callback.
+     *
+     * @param \Closure $callback
+     * @return \Illuminate\Support\Collection
+     */
+    public function newChargesDuring(\Closure $callback);
+
+    /**
      * Get a valid payment token for use in tests.
      *
      * @return string
