@@ -18,4 +18,11 @@ interface PaymentGateway
      * @throws \App\Exceptions\PaymentFailedException
      */
     public function charge($amount, $token);
+
+    /**
+     * Get a valid payment token for use in tests.
+     *
+     * @return string
+     */
+    public function getValidTestToken();
 }

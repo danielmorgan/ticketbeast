@@ -26,16 +26,6 @@ class FakePaymentGateway implements PaymentGateway
     }
 
     /**
-     * Return a valid payment provider token for testing.
-     *
-     * @return string
-     */
-    public function getValidTestToken()
-    {
-        return "valid-token";
-    }
-
-    /**
      * Sets a callback to be executed before charge(), for testing purposes.
      *
      * @param \Closure $callback
@@ -75,5 +65,15 @@ class FakePaymentGateway implements PaymentGateway
     public function totalCharges()
     {
         return $this->charges->sum();
+    }
+
+    /**
+     * Get a valid payment token for use in tests.
+     *
+     * @return string
+     */
+    public function getValidTestToken()
+    {
+        return "valid-token";
     }
 }

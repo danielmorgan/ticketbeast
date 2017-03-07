@@ -1,5 +1,6 @@
 <?php
 
+use App\Billing\PaymentGateway;
 use App\Billing\StripePaymentGateway;
 use App\Exceptions\PaymentFailedException;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -7,7 +8,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Stripe\Charge;
 use Stripe\Stripe;
-use Stripe\Token;
 
 /**
  * @group integration
@@ -28,10 +28,14 @@ class StripePaymentGatewayTest extends TestCase
     /** @test */
     function charges_with_a_valid_payment_token_are_successful()
     {
-        $this->paymentGateway->charge(2500, $this->validToken());
+        $charge =  $this->paymentGateway->lastCharge();
 
-        $this->assertCount(1, $this->newCharges());
-        $this->assertEquals(2500, $this->lastCharge()->amount);
+        $newCharges = $this->paymentGateway->newChargesDuring(function (PaymentGateway $paymentGateway) {
+            $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
+        });
+
+        $this->assertCount(1, $this->paymentGateway->chargesSince($charge));
+        $this->assertEquals(2500, $newCharges->sum());
     }
 
     /** @test */
@@ -89,20 +93,5 @@ class StripePaymentGatewayTest extends TestCase
                 ? $this->lastCharge->id
                 : null,
         ])['data'];
-    }
-
-    /**
-     * @return string
-     */
-    private function validToken()
-    {
-        return Token::create([
-            'card' => [
-                'number'    => '4242424242424242',
-                'exp_month' => 1,
-                'exp_year'  => date('Y') + 1,
-                'cvc'       => '123',
-            ],
-        ], ['api_key' => config('services.stripe.secret')])->id;
     }
 }
