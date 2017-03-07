@@ -48,15 +48,15 @@ class StripePaymentGateway implements PaymentGateway
      * Get charges made during the callback.
      *
      * @param \Closure $callback
-     * @return array|null
+     * @return \Illuminate\Support\Collection
      */
     public function newChargesDuring(\Closure $callback)
     {
         $lastCharge = $this->lastCharge();
 
-        $callback->call($this, $this);
+        $callback($this);
 
-        return $this->chargesSince($lastCharge);
+        return $this->chargesSince($lastCharge)->pluck('amount');
     }
 
     /**
@@ -66,7 +66,10 @@ class StripePaymentGateway implements PaymentGateway
      */
     public function lastCharge()
     {
-        $charges = Charge::all(['limit' => 1])['data'];
+        $charges = Charge::all(
+            ['limit' => 1],
+            ['api_key' => $this->apiKey]
+        )->data;
 
         return array_first($charges);
     }
@@ -79,9 +82,12 @@ class StripePaymentGateway implements PaymentGateway
      */
     public function chargesSince(Charge $charge = null)
     {
-        return Charge::all([
-            'ending_before' => $charge,
-        ])['data'];
+        $charges = Charge::all(
+            ['ending_before' => $charge],
+            ['api_key' => $this->apiKey]
+        )->data;
+
+        return collect($charges);
     }
 
     /**
