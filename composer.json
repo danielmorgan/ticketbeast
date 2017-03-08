@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.6.4",
         "digitlab/blade-icons": "^1.0",
-        "laravel/framework": "5.3.*",
+        "laravel/browser-kit-testing": "^1.0",
+        "laravel/framework": "5.4.*",
         "stripe/stripe-php": "^4.4"
     },
     "require-dev": {
