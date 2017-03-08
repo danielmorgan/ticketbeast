@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class PurchaseTicketsTest extends BrowserKitTestCase
+class PurchaseTicketsTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -15,6 +15,11 @@ class PurchaseTicketsTest extends BrowserKitTestCase
      * @var App\Billing\FakePaymentGateway
      */
     private $paymentGateway;
+
+    /**
+     * @var Illuminate\Foundation\Testing\TestResponse
+     */
+    private $response;
 
 
     /** @test */
@@ -32,8 +37,8 @@ class PurchaseTicketsTest extends BrowserKitTestCase
             'payment_token'   => $this->paymentGateway->getValidTestToken(),
         ]);
 
-        $this->assertResponseStatus(201);
-        $this->seeJsonSubset([
+        $this->response->assertStatus(201);
+        $this->response->assertJson([
             'email'           => 'test@example.com',
             'ticket_quantity' => 3,
             'amount'          => 9750,
@@ -58,7 +63,7 @@ class PurchaseTicketsTest extends BrowserKitTestCase
             'payment_token'   => $this->paymentGateway->getValidTestToken(),
         ]);
 
-        $this->assertResponseStatus(404);
+        $this->response->assertStatus(404);
         $this->assertEquals(0, $concert->orders->count());
         $this->assertEquals(0, $this->paymentGateway->totalCharges());
     }
@@ -78,7 +83,7 @@ class PurchaseTicketsTest extends BrowserKitTestCase
             'payment_token'   => $this->paymentGateway->getValidTestToken(),
         ]);
 
-        $this->assertResponseStatus(422);
+        $this->response->assertStatus(422);
         $this->assertFalse($concert->hasOrderFor('test@example.com'));
         $this->assertEquals(0, $this->paymentGateway->totalCharges());
         $this->assertEquals(50, $concert->ticketsRemaining());
@@ -101,7 +106,7 @@ class PurchaseTicketsTest extends BrowserKitTestCase
                 'payment_token'   => $paymentGateway->getValidTestToken(),
             ]);
 
-            $this->assertResponseStatus(422);
+            $this->response->assertStatus(422);
             $this->assertFalse($concert->hasOrderFor('test@example.com'));
             $this->assertEquals(0, $paymentGateway->totalCharges());
         });
@@ -133,7 +138,7 @@ class PurchaseTicketsTest extends BrowserKitTestCase
             'payment_token'   => 'invalid-payment-token',
         ]);
 
-        $this->assertResponseStatus(422);
+        $this->response->assertStatus(422);
         $this->assertFalse($concert->hasOrderFor('test@example.com'));
         $this->assertEquals(5, $concert->ticketsRemaining());
     }
@@ -235,11 +240,11 @@ class PurchaseTicketsTest extends BrowserKitTestCase
      * @param \App\Concert $concert
      * @param array        $params
      */
-    protected function orderTickets(Concert $concert, array $params = [])
+    private function orderTickets(Concert $concert, array $params = [])
     {
         $savedRequest = $this->app['request'];
 
-        $this->json('POST', "/concerts/{$concert->id}/orders", $params);
+        $this->response = $this->json('POST', "/concerts/{$concert->id}/orders", $params);
 
         $this->app['request'] = $savedRequest;
     }
@@ -249,9 +254,9 @@ class PurchaseTicketsTest extends BrowserKitTestCase
      *
      * @param string $field
      */
-    protected function assertValidationError($field)
+    private function assertValidationError($field)
     {
-        $this->assertResponseStatus(422);
-        $this->assertArrayHasKey($field, $this->decodeResponseJson());
+        $this->response->assertStatus(422);
+        $this->assertArrayHasKey($field, $this->response->decodeResponseJson());
     }
 }
