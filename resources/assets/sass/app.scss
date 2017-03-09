@@ -29,9 +29,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #app {
     flex: 1;
-    padding: $h-gutter 0;
 
-    @media (min-width: $break-xl) {
+    @media (min-width: $break-sm) {
         padding: $h-gutter 0;
     }
 }

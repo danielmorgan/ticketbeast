@@ -1,14 +1,26 @@
 .Concert {
     @extend .Grid__container;
 
+    padding-bottom: $h-gutter;
+    background: $white;
+    border-bottom: 1px solid $grey-light;
     font-weight: bold;
     color: $text-color-dark;
 
-    .icon {
-        fill: $brand-primary;
-        height: 1em;
-        vertical-align: middle;
+    @media (min-width: $break-sm) {
+        max-width: $break-sm - ($gutter*2);
+        border-radius: $radius;
+        border: 1px solid $grey-light;
     }
+}
+
+
+
+/**
+ * Concert Header
+ */
+.ConcertHeader {
+    margin-top: $h-gutter;
 }
 
 
@@ -19,6 +31,12 @@
 .ConcertDetails {
     margin-top: $h-gutter;
     line-height: 2.5;
+
+    .icon {
+        fill: $text-color-dark;
+        height: 1em;
+        vertical-align: middle;
+    }
 }
 
 
@@ -60,11 +78,19 @@
 .ConcertCheckout {
     lost-flex-container: row;
     margin-top: $h-gutter;
+    padding-top: $h-gutter/2;
+    border-top: 1px solid $grey-light;
 }
 
 
 .ConcertCheckout__price {
     lost-column: 1/2;
+}
+
+
+.CheckoutPrice__amount {
+    font-size: 1.2em;
+    line-height: 1.9;
 }
 
 
@@ -74,7 +100,8 @@
 
 
 .ConcertCheckout .Input--text {
-    lost-column: 1;
+    font-size: 1.1em;
+    width: 100%;
 }
 
 
@@ -82,6 +109,6 @@
     @extend .Btn;
     @extend .Btn--brand;
 
-    margin-top: $h-gutter;
+    margin-top: $h-gutter/2;
     width: 100%;
 }

@@ -1,11 +1,11 @@
 <template>
     <div :class="root_class">
         <div class="ConcertCheckout__price">
-            <div class="Checkout__label">Price</div>
+            <label class="ConcertCheckout__label Label">Price</label>
             <div class="CheckoutPrice__amount">&pound;{{ total_price_in_gbp }}</div>
         </div>
         <div class="ConcertCheckout__quantity">
-            <label for="quantity">Quantity</label>
+            <label class="ConcertCheckout__label Label" for="quantity">Quantity</label>
             <input type="number" class="Input Input--text" id="quantity"
                    v-model="quantity"
                    min="1"
