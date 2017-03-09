@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/mockups/order', function() {
-    return view('orders.show');
+    return view('order');
 });
 
 Route::get('/concerts/{id}', 'ConcertsController@show');
