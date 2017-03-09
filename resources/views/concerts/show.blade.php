@@ -1,49 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="Card">
-        <div class="Card__content Concert">
-            <h1 class="Concert__title">{{ $concert->title }}</h1>
-            <h2 class="Concert__subtitle">{{ $concert->subtitle }}</h2>
+    <div class="Concert">
+        <div class="ConcertHeader">
+            <h1 class="ConcertHeader__title">{{ $concert->title }}</h1>
+            <h2 class="ConcertHeader__subtitle">{{ $concert->subtitle }}</h2>
+        </div>
 
-            <div class="Concert__date">
+        <div class="ConcertDetails">
+            <div class="ConcertDetails__date">
                 @icon('calendar')
                 {{ $concert->formatted_date }}
             </div>
 
-            <div class="Concert__time">
+            <div class="ConcertDetails__time">
                 @icon('clock')
                 Doors at {{ $concert->formatted_start_time }}
             </div>
 
-            <div class="Concert__ticket-price">
+            <div class="ConcertDetails__ticket-price">
                 @icon('coin-pound')
                 £{{ $concert->ticket_price_in_gbp }}
             </div>
 
-            <div class="Concert__venue">
+            <div class="ConcertDetails__venue">
                 @icon('location')
                 {{ $concert->venue }}
-                <div class="Concert__indented">
+                <div class="ConcertDetails__indented">
                     {{ $concert->venue_address }}<br>
                     {{ $concert->city }}, {{ $concert->state }} {{ $concert->zip }}
                 </div>
             </div>
 
-            <div class="Concert__additional-information">
+            <div class="ConcertDetails__additional-information">
                 @icon('info')
                 Additional Information
-                <div class="Concert__indented">
+                <div class="ConcertDetails__indented">
                     {{ $concert->additional_information }}
                 </div>
             </div>
         </div>
 
-        <div class="Card__content">
-            {{--Vue component--}}
-            <Checkout concert_id="{{ $concert->id }}"
-                      ticket_price="{{ $concert->ticket_price }}">
-            </Checkout>
-        </div>
+        {{--Vue component--}}
+        <Checkout root_class="ConcertCheckout"
+                  concert_id="{{ $concert->id }}"
+                  ticket_price="{{ $concert->ticket_price }}"
+                  tickets_remaining="{{ $concert->ticketsRemaining() }}">
+        </Checkout>
     </div>
 @endsection

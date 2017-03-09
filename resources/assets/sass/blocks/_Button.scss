@@ -1,0 +1,48 @@
+@mixin button-color($bg, $color){
+    background-color: $bg;
+    color: transparentize($color, 0.1);
+    border: 0;
+
+    &:hover {
+        background-color: darken($bg, 10%);
+        color: $color;
+    }
+
+    &:active {
+        background-color: desaturate($bg, 25%);
+        color: $color;
+    }
+}
+
+
+.Btn {
+    display: inline-block;
+    position: relative;
+    padding: 15px 30px;
+
+    border-radius: $radius;
+
+    font-size: 1em;
+    font-family: $font-family-sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 1.2em;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:active {
+        padding: 16px 30px 14px;
+        box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15);
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+
+    &--default { @include button-color($grey-light, $grey-dark); }
+    &--dark { @include button-color($grey-dark, $grey-light); }
+    &--brand { @include button-color($brand-primary, white); }
+    &--success { @include button-color($brand-success, white); }
+    &--info { @include button-color($brand-info, white); }
+}

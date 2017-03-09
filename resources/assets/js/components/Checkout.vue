@@ -1,15 +1,19 @@
 <template>
-    <div class="Checkout">
-        <div class="CheckoutPrice">
+    <div :class="root_class">
+        <div class="ConcertCheckout__price">
             <div class="Checkout__label">Price</div>
             <div class="CheckoutPrice__amount">&pound;{{ total_price_in_gbp }}</div>
         </div>
-        <div class="CheckoutQuantity">
-            <div class="Checkout__label">Quantity</div>
-            <input class="CheckoutQuantity__input" type="text" v-model="quantity">
+        <div class="ConcertCheckout__quantity">
+            <label for="quantity">Quantity</label>
+            <input type="number" class="Input Input--text" id="quantity"
+                   v-model="quantity"
+                   min="1"
+                   :max="tickets_remaining"
+                   step="1">
         </div>
 
-        <button class="CheckoutButton"
+        <button class="ConcertCheckout__button"
                 v-on:click="openStripe">
             Buy Tickets
         </button>
@@ -19,7 +23,7 @@
 
 <script>
     export default {
-        props: ['concert_id', 'ticket_price'],
+        props: ['root_class', 'concert_id', 'ticket_price', 'tickets_remaining'],
 
         data() {
             return {

@@ -1,43 +1,87 @@
 .Concert {
+    @extend .Grid__container;
+
     font-weight: bold;
-    font-size: 18px;
-    line-height: 2.5;
     color: $text-color-dark;
 
-    .icon { fill: $brand-primary; }
+    .icon {
+        fill: $brand-primary;
+        height: 1em;
+        vertical-align: middle;
+    }
 }
 
 
-.Concert__title {
+
+/**
+ * Concert Details
+ */
+.ConcertDetails {
+    margin-top: $h-gutter;
+    line-height: 2.5;
+}
+
+
+.ConcertDetails__title {
     font-family: $font-family-rounded;
     font-size: 2em;
 }
 
 
-.Concert__subtitle {
-    margin-top: 0.25em;
-
+.ConcertDetails__subtitle {
     font-family: $font-family-rounded;
     font-size: 1.5em;
     color: $text-color;
 }
 
 
-.Concert__date {
-    margin-top: 1.5em;
+.ConcertDetails__date {
 }
 
 
-.Concert__additional-information {
-    margin-top: 1em;
+.ConcertDetails__additional-information {
 }
 
 
-.Concert__indented {
+.ConcertDetails__indented {
     margin: -10px 0 0 36px;
 
     font-size: 0.8em;
     line-height: 1.2;
     font-weight: normal;
     color: $text-color;
+}
+
+
+
+/**
+ * Concert Checkout
+ */
+.ConcertCheckout {
+    lost-flex-container: row;
+    margin-top: $h-gutter;
+}
+
+
+.ConcertCheckout__price {
+    lost-column: 1/2;
+}
+
+
+.ConcertCheckout__quantity {
+    lost-column: 1/2;
+}
+
+
+.ConcertCheckout .Input--text {
+    lost-column: 1;
+}
+
+
+.ConcertCheckout__button {
+    @extend .Btn;
+    @extend .Btn--brand;
+
+    margin-top: $h-gutter;
+    width: 100%;
 }
