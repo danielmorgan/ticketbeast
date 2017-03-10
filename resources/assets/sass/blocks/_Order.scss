@@ -1,0 +1,61 @@
+.Order {
+    @extend .Grid__container;
+}
+
+
+
+/**
+ * Order Header
+ */
+.OrderHeader {
+    lost-flex-container: row;
+    margin-top: $h-gutter;
+}
+
+
+.OrderHeader__title {
+    lost-column: 1;
+    @media (min-width: $break-sm) {
+        lost-column: 3/4;
+    }
+}
+
+
+.OrderHeader__id {
+    lost-column: 1;
+    @media (min-width: $break-sm) {
+        lost-column: 1/4;
+        lost-align: middle-right;
+    }
+}
+
+
+
+/**
+ * Order Summary
+ */
+.OrderSummary {
+    margin-top: $h-gutter/2;
+    padding: $h-gutter/2 0;
+    border-top: 1px solid $grey-light;
+    border-bottom: 1px solid $grey-light;
+
+    @media (min-width: $break-sm) {
+        margin-top: $h-gutter;
+    }
+}
+
+.OrderSummary__total {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: $text-color-dark;
+}
+
+
+
+/**
+ * Order Tickets
+ */
+.OrderTickets {
+    margin-top: $h-gutter;
+}
