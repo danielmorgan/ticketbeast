@@ -3,8 +3,88 @@
  */
 .Ticket {
     margin-top: $h-gutter/2;
-    padding: 2em;
+
     background: $white;
-    border: 1px solid $grey-light;
+    border-left: 1px solid $grey-light;
     border-radius: $radius;
+}
+
+
+
+/**
+ * Ticket Header
+ */
+.TicketHeader {
+    padding: $gutter;
+
+    background: $brand-primary;
+    border-radius: $radius $radius 0 0;
+}
+
+
+.TicketHeaderTitles__title {
+    font-size: 1.5em;
+    line-height: 1;
+    color: $white;
+}
+
+
+.TicketHeaderTitles__subtitle {
+    line-height: 1;
+    color: $grey-light;
+}
+
+
+.TicketHeaderInfo {
+    lost-flex-container: row;
+    margin-top: $gutter;
+}
+
+
+.TicketHeaderInfo__general-admission {
+    lost-column: 1/2;
+
+    line-height: 1;
+    font-weight: bold;
+    color: $grey-light;
+}
+
+.TicketHeaderInfo__admit-one {
+    lost-column: 1/2;
+
+    line-height: 1;
+    text-align: right;
+    color: $grey-light;
+}
+
+
+
+/**
+ * Ticket Body
+ */
+.TicketBody {
+    padding: $gutter;
+
+    border-left: 1px solid $grey-light;
+    border-right: 1px solid $grey-light;
+
+    .icon {
+        fill: $text-color-dark;
+        height: 1em;
+        vertical-align: middle;
+    }
+}
+
+
+
+/**
+ * Ticket Footer
+ */
+.TicketFooter {
+    padding: $gutter;
+
+    border-left: 1px solid $grey-light;
+    border-right: 1px solid $grey-light;
+    border-bottom: 1px solid $grey-light;
+    border-radius: 0 0 $radius $radius;
 }

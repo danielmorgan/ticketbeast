@@ -49,3 +49,8 @@
         </Checkout>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <script type="text/javascript" src="{{ elixir('js/app.js') }}"></script>
+@endpush

@@ -26,7 +26,7 @@
                 <div class="TicketHeader">
                     <div class="TicketHeaderTitles">
                         <h3 class="TicketHeaderTitles__title">This is the title</h3>
-                        <h4 class="TicketHeaderTitles__subtitle">and it has a longer subtitle</h4>
+                        <div class="TicketHeaderTitles__subtitle">and it has a longer subtitle</div>
                     </div>
                     <div class="TicketHeaderInfo">
                         <div class="TicketHeaderInfo__general-admission">General Admission</div>

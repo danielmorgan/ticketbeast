@@ -20,9 +20,8 @@
         @yield('content')
     </div>
 
-    {{--<script src="https://checkout.stripe.com/checkout.js"></script>--}}
-    <script type="text/javascript" src="{{ elixir('js/app.js') }}"></script>
+    @stack('scripts')
 
-    {{--<link href="https://fonts.googleapis.com/css?family=Karla:400,700|Nunito:600" rel="stylesheet">--}}
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Nunito:600" rel="stylesheet">
 </body>
 </html>
