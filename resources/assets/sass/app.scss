@@ -38,6 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .Grid__container {
     lost-center: 100% $gutter;
+    min-width: $break-sm/2;
 
     @media (min-width: $break-sm) {
         lost-center: 100% $gutter*2;

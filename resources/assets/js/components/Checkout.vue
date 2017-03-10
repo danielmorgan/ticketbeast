@@ -22,6 +22,8 @@
 
 
 <script>
+    import axios from 'axios';
+
     export default {
         props: ['root_class', 'concert_id', 'ticket_price', 'tickets_remaining'],
 
@@ -64,7 +66,7 @@
                     payment_token: token.id
                 };
 
-                this.$http.post(`/concerts/${this.concert_id}/orders`, payload)
+                axios.post(`/concerts/${this.concert_id}/orders`, payload)
                     .then(res => {
                         console.log(res);
                         alert('Tickets purchased');
