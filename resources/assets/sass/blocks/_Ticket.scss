@@ -5,7 +5,6 @@
     margin-top: $h-gutter/2;
 
     background: $white;
-    border-left: 1px solid $grey-light;
     border-radius: $radius;
 }
 
@@ -76,6 +75,38 @@
 }
 
 
+.TicketBodySchedule {
+}
+
+
+.TicketBodySchedule__date {
+    font-weight: bold;
+    color: $text-color-dark;
+}
+
+
+.TicketBodySchedule__time {
+    line-height: 1;
+    margin-left: 36px;
+}
+
+
+.TicketBodyLocation {
+    margin-top: $gutter;
+}
+
+
+.TicketBodyLocation__venue {
+    font-weight: bold;
+    color: $text-color-dark;
+}
+
+
+.TicketBodyLocation__address {
+    line-height: 1;
+    margin-left: 36px;
+}
+
 
 /**
  * Ticket Footer
@@ -83,8 +114,6 @@
 .TicketFooter {
     padding: $gutter;
 
-    border-left: 1px solid $grey-light;
-    border-right: 1px solid $grey-light;
-    border-bottom: 1px solid $grey-light;
+    border: 1px solid $grey-light;
     border-radius: 0 0 $radius $radius;
 }

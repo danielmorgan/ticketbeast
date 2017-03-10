@@ -36,13 +36,17 @@
 
                 <div class="TicketBody">
                     <div class="TicketBodySchedule">
-                        @icon('calendar')
-                        <div class="TicketBodySchedule__date">Sunday, October 16, 2011</div>
+                        <div class="TicketBodySchedule__date">
+                            @icon('calendar')
+                            Sunday, October 16, 2011
+                        </div>
                         <div class="TicketBodySchedule__time">Doors at 8:00PM</div>
                     </div>
                     <div class="TicketBodyLocation">
-                        @icon('clock')
-                        <div class="TicketBodyLocation__venue">Music Hall of Williamsburg</div>
+                        <div class="TicketBodyLocation__venue">
+                            @icon('clock')
+                            Music Hall of Williamsburg
+                        </div>
                         <address class="TicketBodyLocation__address">
                             123 Main St. W<br>
                             Brooklyn, New York 14259
