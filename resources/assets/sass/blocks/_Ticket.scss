@@ -18,10 +18,24 @@
  * Ticket Header
  */
 .TicketHeader {
+    lost-flex-container: row;
     padding: $gutter;
 
-    background: $brand-primary;
+    @media (min-width: $break-md) {
+        padding: $gutter*2;
+    }
+
+    background: $grey-dark;
     border-radius: $radius $radius 0 0;
+}
+
+
+.TicketHeaderTitles {
+    lost-column: 1;
+
+    @media (min-width: $break-md) {
+        lost-column: 2/3;
+    }
 }
 
 
@@ -29,23 +43,44 @@
     font-size: 1.5em;
     line-height: 1;
     color: $white;
+
+    @media (min-width: $break-md) {
+        font-size: 1.75em;
+    }
 }
 
 
 .TicketHeaderTitles__subtitle {
     line-height: 1;
     color: $grey-light;
+
+    @media (min-width: $break-md) {
+        font-size: 1.25em;
+    }
 }
 
 
 .TicketHeaderInfo {
+    lost-column: 1;
     lost-flex-container: row;
+
     margin-top: $gutter;
+
+    @media (min-width: $break-md) {
+        lost-column: 1/3;
+        margin-top: 0;
+    }
 }
 
 
 .TicketHeaderInfo__general-admission {
-    lost-column: 1/2;
+    lost-column: 2/5;
+
+    @media (min-width: $break-md) {
+        lost-column: 1;
+        text-align: right;
+        line-height: 1.5;
+    }
 
     line-height: 1;
     font-weight: bold;
@@ -53,7 +88,12 @@
 }
 
 .TicketHeaderInfo__admit-one {
-    lost-column: 1/2;
+    lost-column: 3/5;
+
+    @media (min-width: $break-md) {
+        lost-column: 1;
+        line-height: 1.5;
+    }
 
     line-height: 1;
     text-align: right;
@@ -132,30 +172,37 @@
  * Ticket Footer
  */
 .TicketFooter {
+    lost-flex-container: row;
     padding: $gutter;
 
     border: 1px solid $grey-light;
     border-radius: 0 0 $radius $radius;
 
-    @media (min-width: $break-sm) {
-        lost-flex-container: row;
+    @media (min-width: $break-md) {
+        padding: $gutter $gutter*1.5;
     }
 }
 
 
 .TicketFooter__code {
+    lost-column: 1;
+
+    font-size: 1.25em;
+    color: $text-color-dark;
+
     @media (min-width: $break-sm) {
         lost-column: 1/2;
+        font-size: 1.5em;
     }
-
-    font-size: 1.2em;
 }
 
 
 .TicketFooter__email {
+    lost-column: 1;
+
     @media (min-width: $break-sm) {
         lost-column: 1/2;
-
         text-align: right;
+        line-height: 2.5;
     }
 }
