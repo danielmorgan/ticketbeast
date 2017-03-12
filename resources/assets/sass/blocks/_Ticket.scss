@@ -62,7 +62,12 @@
  * Ticket Body
  */
 .TicketBody {
+    lost-flex-container: row;
     padding: $gutter;
+
+    @media (min-width: $break-md) {
+        padding: $gutter*1.5 $gutter $gutter*2;
+    }
 
     border-left: 1px solid $grey-light;
     border-right: 1px solid $grey-light;
@@ -76,6 +81,22 @@
 
 
 .TicketBodySchedule {
+    lost-column: 1;
+
+    @media (min-width: $break-md) {
+        lost-column: 1/2;
+    }
+}
+
+
+.TicketBodyLocation {
+    lost-column: 1;
+    margin-top: $gutter;
+
+    @media (min-width: $break-md) {
+        lost-column: 1/2;
+        margin-top: 0;
+    }
 }
 
 
@@ -88,11 +109,6 @@
 .TicketBodySchedule__time {
     line-height: 1;
     margin-left: 36px;
-}
-
-
-.TicketBodyLocation {
-    margin-top: $gutter;
 }
 
 
@@ -116,4 +132,26 @@
 
     border: 1px solid $grey-light;
     border-radius: 0 0 $radius $radius;
+
+    @media (min-width: $break-sm) {
+        lost-flex-container: row;
+    }
+}
+
+
+.TicketFooter__code {
+    @media (min-width: $break-sm) {
+        lost-column: 1/2;
+    }
+
+    font-size: 1.2em;
+}
+
+
+.TicketFooter__email {
+    @media (min-width: $break-sm) {
+        lost-column: 1/2;
+
+        text-align: right;
+    }
 }

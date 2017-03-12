@@ -9,3 +9,5 @@ Homestead.json
 Homestead.yaml
 .env
 _ide_helper*
+public/mix-manifest.json
+storage/framework/icons
