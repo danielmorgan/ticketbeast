@@ -4,6 +4,10 @@
 .Ticket {
     margin-top: $h-gutter/2;
 
+    @media (min-width: $break-md) {
+        margin-top: $h-gutter;
+    }
+
     background: $white;
     border-radius: $radius;
 }
@@ -73,7 +77,7 @@
     border-right: 1px solid $grey-light;
 
     .icon {
-        fill: $text-color-dark;
+        fill: $brand-primary;
         height: 1em;
         vertical-align: middle;
     }
