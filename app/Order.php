@@ -33,6 +33,18 @@ class Order extends Model
     }
 
     /**
+     * Find a ticket from it's confirmation number.
+     *
+     * @param string $confirmationNumber
+     * @return mixed
+     */
+    public static function findByConfirmationNumber($confirmationNumber)
+    {
+        return self::where('confirmation_number', $confirmationNumber)
+            ->firstOrFail();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tickets()

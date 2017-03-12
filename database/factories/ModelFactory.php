@@ -50,6 +50,18 @@ $factory->state(App\Concert::class, 'unpublished', function (Faker\Generator $fa
 });
 
 
+/** Order */
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Order::class, function (Faker\Generator $faker) {
+    return [
+        'amount' => 5250,
+        'email'  => 'test@example.com',
+    ];
+});
+
+
+
 /**
  * Ticket
  */
