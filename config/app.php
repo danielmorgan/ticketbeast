@@ -168,6 +168,7 @@ return [
          */
         DigitLab\BladeIcons\BladeIconsServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
          * Application Service Providers...

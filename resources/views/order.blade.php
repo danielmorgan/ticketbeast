@@ -6,7 +6,9 @@
         <div class="OrderHeader">
             <h1 class="OrderHeader__title">Order Summary</h1>
             <div class="OrderHeader__id">
-                <a href="#">{{ $order->confirmation_number }}</a>
+                <a href="{{ url("/orders/{$order->confirmation_number}") }}">
+                    {{ $order->confirmation_number }}
+                </a>
             </div>
         </div>
 
@@ -27,8 +29,8 @@
                 <div class="Ticket">
                     <div class="TicketHeader">
                         <div class="TicketHeaderTitles">
-                            <h3 class="TicketHeaderTitles__title">This is the title</h3>
-                            <div class="TicketHeaderTitles__subtitle">and it has a longer subtitle</div>
+                            <h3 class="TicketHeaderTitles__title">{{ $ticket->concert->title }}</h3>
+                            <div class="TicketHeaderTitles__subtitle">{{ $ticket->concert->subtitle }}</div>
                         </div>
                         <div class="TicketHeaderInfo">
                             <div class="TicketHeaderInfo__general-admission">General Admission</div>
@@ -40,25 +42,27 @@
                         <div class="TicketBodySchedule">
                             <div class="TicketBodySchedule__date">
                                 @icon('calendar')
-                                Sunday, October 16, 2011
+                                {{ $ticket->concert->date->format('l, F j, Y') }}
                             </div>
-                            <div class="TicketBodySchedule__time">Doors at 8:00PM</div>
+                            <div class="TicketBodySchedule__time">
+                                Doors at {{ $ticket->concert->date->format('g:ia') }}
+                            </div>
                         </div>
                         <div class="TicketBodyLocation">
                             <div class="TicketBodyLocation__venue">
                                 @icon('clock')
-                                Music Hall of Williamsburg
+                                {{ $ticket->concert->venue }}
                             </div>
                             <address class="TicketBodyLocation__address">
-                                123 Main St. W<br>
-                                Brooklyn, New York 14259
+                                <p>{{ $ticket->concert->venue_address }}</p>
+                                <p>{{ $ticket->concert->city }}, {{ $ticket->concert->state }} {{ $ticket->concert->zip }}</p>
                             </address>
                         </div>
                     </div>
 
                     <div class="TicketFooter">
                         <div class="TicketFooter__code">{{ $ticket->code }}</div>
-                        <div class="TicketFooter__email">me@danielmorgan.co.uk</div>
+                        <div class="TicketFooter__email">{{ $order->email }}</div>
                     </div>
                 </div>
             @endforeach

@@ -77,7 +77,7 @@
     lost-column: 2/5;
 
     @media (min-width: $break-md) {
-        lost-column: 1;
+        lost-column: 1 1;
         text-align: right;
         line-height: 1.5;
     }
