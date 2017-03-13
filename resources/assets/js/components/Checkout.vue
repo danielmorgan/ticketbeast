@@ -68,9 +68,7 @@
 
                 axios.post(`/concerts/${this.concert_id}/orders`, payload)
                     .then(res => {
-                        console.log(res);
-                        alert('Tickets purchased');
-                        this.quantity = 0;
+                        window.location = '/orders/' + res.data.confirmation_number;
                     });
             }
         }
