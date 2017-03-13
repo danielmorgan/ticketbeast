@@ -6,6 +6,7 @@ use App\Concert;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Facades\App\OrderConfirmationNumber;
 
 class PurchaseTicketsTest extends TestCase
 {
@@ -25,6 +26,8 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function customer_can_purchase_tickets_to_a_published_concert()
     {
+        OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
+
         /** @var \App\Concert $concert */
         $concert = factory(Concert::class)
             ->states(['published'])
@@ -39,9 +42,10 @@ class PurchaseTicketsTest extends TestCase
 
         $this->response->assertStatus(201);
         $this->response->assertJson([
-            'email'           => 'test@example.com',
-            'ticket_quantity' => 3,
-            'amount'          => 9750,
+            'confirmation_number' => 'ORDERCONFIRMATION1234',
+            'email'               => 'test@example.com',
+            'ticket_quantity'     => 3,
+            'amount'              => 9750,
         ]);
         $this->assertEquals(9750, $this->paymentGateway->totalCharges());
         $this->assertTrue($concert->hasOrderFor('test@example.com'));
