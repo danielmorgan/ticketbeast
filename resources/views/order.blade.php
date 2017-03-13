@@ -42,7 +42,9 @@
                         <div class="TicketBodySchedule">
                             <div class="TicketBodySchedule__date">
                                 @icon('calendar')
-                                {{ $ticket->concert->date->format('l, F j, Y') }}
+                                <time datetime="{{ $ticket->concert->date->format('Y-m-d H:i') }}">
+                                    {{ $ticket->concert->date->format('l, F jS, Y') }}
+                                </time>
                             </div>
                             <div class="TicketBodySchedule__time">
                                 Doors at {{ $ticket->concert->date->format('g:ia') }}
