@@ -2,9 +2,9 @@
 
 namespace App;
 
-class OrderConfirmationNumber
+class RandomOrderConfirmationNumberGenerator implements OrderConfirmationNumberGenerator
 {
-    const LENGTH = 16;
+    const LENGTH = 24;
 
     public function generate()
     {

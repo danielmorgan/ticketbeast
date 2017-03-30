@@ -2,10 +2,31 @@
 
 namespace App;
 
-use Facades\App\OrderConfirmationNumber;
+use App\Facades\OrderConfirmationNumber;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * App\Order
+ *
+ * @property int $id
+ * @property string $confirmation_number
+ * @property string $email
+ * @property int $amount
+ * @property string $card_last_four
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Concert $concert
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
+ * @method static \Illuminate\Database\Query\Builder|\App\Order whereAmount($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Order whereCardLastFour($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Order whereConfirmationNumber($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Order whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Order whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Order whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Order extends Model
 {
     /**

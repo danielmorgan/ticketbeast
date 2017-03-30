@@ -5,6 +5,28 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Ticket
+ *
+ * @property int $id
+ * @property int $concert_id
+ * @property int $order_id
+ * @property string $reserved_at
+ * @property string $code
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Concert $concert
+ * @property-read int $price
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket available()
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket whereConcertId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket whereOrderId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket whereReservedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ticket whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Ticket extends Model
 {
     /**

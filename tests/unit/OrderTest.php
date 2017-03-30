@@ -66,7 +66,9 @@ class OrderTest extends TestCase
             'email'               => 'test@example.com',
             'amount'              => 6000,
         ]);
-        $order->tickets()->saveMany(factory(Ticket::class)->times(5)->create());
+        $order->tickets()->saveMany(
+            factory(Ticket::class, 5)->create()
+        );
 
         $result = $order->toArray();
 

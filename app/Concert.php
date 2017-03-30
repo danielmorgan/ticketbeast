@@ -6,6 +6,45 @@ use App\Exceptions\NotEnoughTicketsException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Concert
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $subtitle
+ * @property \Carbon\Carbon $date
+ * @property int $ticket_price
+ * @property string $venue
+ * @property string $venue_address
+ * @property string $city
+ * @property string $state
+ * @property string $zip
+ * @property string $additional_information
+ * @property string $published_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read string $formatted_date
+ * @property-read string $formatted_start_time
+ * @property-read string $ticket_price_in_gbp
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Order[] $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ticket[] $tickets
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert published()
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereAdditionalInformation($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereCity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert wherePublishedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereSubtitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereTicketPrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereVenue($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereVenueAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Concert whereZip($value)
+ * @mixin \Eloquent
+ */
 class Concert extends Model
 {
     protected $guarded = [];
