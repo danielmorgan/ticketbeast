@@ -65,6 +65,14 @@ class Reservation
             $this->email(),
             $this->totalCost()
         );
+
+//        $charge = $paymentGateway->charge($this->totalCost(), $paymentToken);
+//
+//        return Order::forTickets(
+//            $this->tickets(),
+//            $this->email(),
+//            $charge
+//        );
     }
 
     /**
