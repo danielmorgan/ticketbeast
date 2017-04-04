@@ -109,22 +109,6 @@ class Concert extends Model
     }
 
     /**
-     * Create an order and some tickets.
-     *
-     * @param string $email
-     * @param int    $ticketQuantity
-     * @return \App\Order
-     * @throws \App\Exceptions\NotEnoughTicketsException
-     * @todo Remove this, only used in tests
-     */
-    public function orderTickets($email, $ticketQuantity = 1)
-    {
-        $tickets = $this->findTickets($ticketQuantity);
-
-        return $this->createOrder($email, $tickets);
-    }
-
-    /**
      * Get some tickets if available.
      *
      * @param int $quantity
@@ -158,18 +142,6 @@ class Concert extends Model
         });
 
         return new Reservation($tickets, $email);
-    }
-
-    /**
-     * Create an order and attach some tickets to it.
-     *
-     * @param string                                   $email
-     * @param \Illuminate\Database\Eloquent\Collection $tickets
-     * @return \App\Order
-     */
-    public function createOrder($email, Collection $tickets)
-    {
-        return Order::forTickets($tickets, $email, $tickets->sum('price'));
     }
 
     /**

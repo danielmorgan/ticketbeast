@@ -1,5 +1,6 @@
 <?php
 
+use App\Billing\Charge;
 use App\Concert;
 use App\Order;
 use App\Reservation;
@@ -14,24 +15,18 @@ class OrderTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function creating_an_order_from_tickets_email_and_amount()
+    function creating_an_order_from_tickets_email_and_charge()
     {
-        /** @var \App\Concert $concert */
-        $concert = factory(Concert::class)
-            ->create()
-            ->addTickets(5);
-        $this->assertEquals(5, $concert->ticketsRemaining());
+        $tickets = factory(Ticket::class, 3)->create();
 
-        $order = Order::forTickets(
-            $concert->findTickets(3),
-            'test@example.com',
-            7500
-        );
+        $charge = new Charge(['amount' => 7500, 'card_last_four' => '1234']);
+
+        $order = Order::forTickets($tickets, 'test@example.com', $charge);
 
         $this->assertEquals('test@example.com', $order->email);
         $this->assertEquals(3, $order->ticketQuantity());
         $this->assertEquals(7500, $order->amount);
-        $this->assertEquals(2, $concert->ticketsRemaining());
+        $this->assertEquals(1234, $order->card_last_four);
     }
 
     /** @test */

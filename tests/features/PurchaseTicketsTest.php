@@ -27,6 +27,7 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function customer_can_purchase_tickets_to_a_published_concert()
     {
+        $this->disableExceptionHandling();
         $orderConfirmationNumberGenerator = Mockery::mock(OrderConfirmationNumberGenerator::class, [
             'generate' => 'ORDERCONFIRMATION1234',
         ]);

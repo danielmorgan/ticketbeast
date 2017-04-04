@@ -55,11 +55,12 @@ $factory->state(App\Concert::class, 'unpublished', function (Faker\Generator $fa
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Order::class, function (Faker\Generator $faker) {
     return [
-        'amount' => 5250,
-        'email'  => 'test@example.com',
+        'amount'              => 5250,
+        'email'               => 'test@example.com',
+        'confirmation_number' => 'ORDERCONFIRMATION1234',
+        'card_last_four'      => '1234',
     ];
 });
-
 
 
 /**
