@@ -7,6 +7,8 @@ use Illuminate\Support\Collection;
 
 class FakePaymentGateway implements PaymentGateway
 {
+    const TEST_CARD_NUMBER = '4242424242424242';
+
     /**
      * @var \Illuminate\Support\Collection
      */
@@ -100,7 +102,7 @@ class FakePaymentGateway implements PaymentGateway
      *
      * @return string
      */
-    public function getValidTestToken($cardNumber = '4242424242424242')
+    public function getValidTestToken($cardNumber = self::TEST_CARD_NUMBER)
     {
         $token = 'fake-tok_' . str_random(24);
         $this->tokens[$token] = $cardNumber;
