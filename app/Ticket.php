@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Facades\TicketCode;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -77,5 +78,16 @@ class Ticket extends Model
     public function release()
     {
         $this->update(['reserved_at' => null]);
+    }
+
+    /**
+     * Claim a ticket and associate it with an order.
+     *
+     * @param \App\Order $order
+     */
+    public function claimFor(Order $order)
+    {
+        $this->code = TicketCode::generate();
+        $order->tickets()->save($this);
     }
 }
