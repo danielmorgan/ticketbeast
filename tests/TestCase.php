@@ -12,6 +12,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function setUp()
     {
         parent::setUp();
+
         Mockery::getConfiguration()->allowMockingNonExistentMethods(false);
     }
 

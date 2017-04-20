@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FakePaymentGatewayTest extends TestCase
 {
-    use PaymentGatewayContractTests;
+    use DatabaseMigrations, PaymentGatewayContractTests;
 
 
     /** @test */

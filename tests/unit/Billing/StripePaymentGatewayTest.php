@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class StripePaymentGatewayTest extends TestCase
 {
-    use PaymentGatewayContractTests;
+    use DatabaseMigrations, PaymentGatewayContractTests;
 
 
     /**

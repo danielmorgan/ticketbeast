@@ -3,7 +3,6 @@
 use App\Facades\TicketCode;
 use App\Order;
 use App\Ticket;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

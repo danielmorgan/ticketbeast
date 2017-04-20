@@ -1,9 +1,7 @@
 <?php
 
 use App\Billing\Charge;
-use App\Concert;
 use App\Order;
-use App\Reservation;
 use App\Ticket;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
