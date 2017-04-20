@@ -4,11 +4,10 @@ use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
 use App\Concert;
 use App\Facades\OrderConfirmationNumber;
-use App\OrderConfirmationNumberGenerator;
+use App\Facades\TicketCode;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\RandomOrderConfirmationNumberGenerator;
 
 class PurchaseTicketsTest extends TestCase
 {
@@ -31,6 +30,7 @@ class PurchaseTicketsTest extends TestCase
         $this->disableExceptionHandling();
 
         OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
+        TicketCode::shouldReceive('generateFor')->andReturn('TICKETCODE1', 'TICKETCODE2', 'TICKETCODE3');
 
         /** @var \App\Concert $concert */
         $concert = factory(Concert::class)
