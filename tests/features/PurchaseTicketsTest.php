@@ -5,6 +5,8 @@ use App\Billing\PaymentGateway;
 use App\Concert;
 use App\Facades\OrderConfirmationNumber;
 use App\Facades\TicketCode;
+use App\Mail\OrderConfirmationEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -28,6 +30,7 @@ class PurchaseTicketsTest extends TestCase
     function customer_can_purchase_tickets_to_a_published_concert()
     {
         $this->disableExceptionHandling();
+        Mail::fake();
 
         OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
         TicketCode::shouldReceive('generateFor')->andReturn('TICKETCODE1', 'TICKETCODE2', 'TICKETCODE3');
@@ -43,6 +46,7 @@ class PurchaseTicketsTest extends TestCase
             'ticket_quantity' => 3,
             'payment_token'   => $this->paymentGateway->getValidTestToken(),
         ]);
+        $order = $concert->ordersFor('test@example.com')->first();
 
         $this->response->assertStatus(201);
         $this->response->assertJson([
@@ -57,7 +61,12 @@ class PurchaseTicketsTest extends TestCase
         ]);
         $this->assertEquals(9750, $this->paymentGateway->totalCharges());
         $this->assertTrue($concert->hasOrderFor('test@example.com'));
-        $this->assertEquals(3, $concert->ordersFor('test@example.com')->first()->ticketQuantity());
+        $this->assertEquals(3, $order->ticketQuantity());
+
+        Mail::assertSent(OrderConfirmationEmail::class, function ($mail) use ($order) {
+            return $mail->hasTo('test@example.com')
+                && $mail->order->id === $order->id;
+        });
     }
 
     /** @test */
